@@ -5,7 +5,7 @@
 -- @author Jerryk <jerrykuku@qq.com>
 ------------------------------------------------
 local _M = {}
-
+local icount = 0
 -- Get country iso code with remark or host
 -- Return String:iso_code
 function _M.get_flag(remark, host)
@@ -89,8 +89,9 @@ function _M.get_flag(remark, host)
 
     local iso_code = nil
     if (remark ~= nil) then
+        remark = string.gsub(remark, "NETWORKS", "")
         for i, v in pairs(emoji_table) do
-            if (string.find(string.lower(remark), string.lower(v))) then
+            if (string.find(string.lower(remark), string.lower(v)) ~= nil) then
                 iso_code = string.lower(iso_table[i])
                 break
             end
@@ -157,6 +158,7 @@ function _M.wget(url)
                            url .. '"')
     return _M.trim(stdout)
 end
+
 
 return _M
 
